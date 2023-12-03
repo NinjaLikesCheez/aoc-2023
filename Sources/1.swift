@@ -1,11 +1,10 @@
 import Foundation
 
-struct One {
+struct PuzzleOne: Puzzle {
 	let input: [String.SubSequence]
 
 	init() {
-		input = try! String(contentsOf: URL(filePath: "inputs/1"))
-			.split(whereSeparator: \.isNewline)
+		input = Self.fetchPuzzle("inputs/1")
 	}
 
 	func partOne() {
