@@ -2,6 +2,9 @@ import Foundation
 
 protocol Puzzle {
 	var input: [String.SubSequence] { get }
+
+	func partOne()
+	func partTwo()
 }
 
 extension Puzzle {

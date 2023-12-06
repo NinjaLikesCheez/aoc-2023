@@ -11,9 +11,8 @@ struct PuzzleFour: Puzzle {
 
 	func partOne() {
 		// For each card, get total of numbersOnCard in winningNumbers
-
 		let score = cards
-			.map { $0.winningNumbers.intersection($0.numbersOnCard).count }
+			.map { $0.matches.count }
 			.map { total in
 				var result = 0
 				for _ in 0..<total {
@@ -30,14 +29,38 @@ struct PuzzleFour: Puzzle {
 		print("Score: \(score)")
 	}
 
-	func partTwo() {}
+	func partTwo() {
+		var copies = [Int](repeating: 1, count: cards.count + 1)
+		copies[0] = 0
+
+		cards
+			.filter { $0.wins > 0 }
+			.forEach { card in
+				let start = card.id + 1
+				let end = card.id + card.wins
+
+				(start...end)
+					.forEach { index in
+						copies[index] += copies[card.id]
+					}
+			 }
+
+		let result = copies
+			.reduce(0, +)
+
+		print("result: \(result)")
+	}
 
 	static func parseCards(_ input: [String.SubSequence]) -> [Card] {
-		input
+		var cardId = 0
+		return input
 			.map { $0.dropFirst(10) } // Remove Card prefix
 			.map { $0.split(separator: "|") }
 			.map { (numbers(from: $0.first!), numbers(from: $0.last!)) }
-			.map { Card(winningNumbers: $0.0, numbersOnCard: $0.1) }
+			.map {
+				cardId += 1
+				return Card(id: cardId, winningNumbers: $0.0, numbersOnCard: $0.1)
+			}
 	}
 
 	static func numbers(from input: String.SubSequence) -> Set<Int> {
@@ -50,7 +73,32 @@ struct PuzzleFour: Puzzle {
 	}
 }
 
-struct Card {
+class Card: CustomStringConvertible {
+	let id: Int
 	let winningNumbers: Set<Int>
 	let numbersOnCard: Set<Int>
+	let matches: Set<Int>
+	var wins: Int { matches.count }
+	var winFactor = 1
+
+	var description: String { "Card(\(id))" }
+
+	init(id: Int, winningNumbers: Set<Int>, numbersOnCard: Set<Int>) {
+		self.id = id
+		self.winningNumbers = winningNumbers
+		self.numbersOnCard = numbersOnCard
+		self.matches = winningNumbers.intersection(numbersOnCard)
+	}
+}
+
+extension Card: Hashable {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
+	}
+}
+
+extension Card: Equatable {
+	static func == (lhs: Card, rhs: Card) -> Bool {
+		lhs.id == rhs.id
+	}
 }

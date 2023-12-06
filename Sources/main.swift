@@ -9,10 +9,18 @@
 // two.partOne()
 // two.partTwo()
 
-// var three = PuzzleThree()
+// let three = PuzzleThree()
 // three.partOne()
 // three.partTwo()
 
-var four = PuzzleFour()
-four.partOne()
-four.partTwo()
+// let four = PuzzleFour()
+// four.partOne()
+// four.partTwo()
+
+// let five = PuzzleFive()
+// five.partOne()
+// five.partTwo()
+
+let six = PuzzleSix()
+six.partOne()
+six.partTwo()
