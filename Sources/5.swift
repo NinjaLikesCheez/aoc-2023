@@ -20,12 +20,6 @@ struct PuzzleFive: Puzzle {
 			.first ?? source
 	}
 
-	// func numbers(from values: [MapValue], range: Range<Int>) -> Range<Int> {
-	// 	values
-	// 		.compactMap { $0.destinations(for: range) }
-	// 		.first ?? range
-	// }
-
 	func partOne() {
 		// These maps convert numbers from source to destinations:
 		//  Destination Start Range, Source Range Start, Range Length

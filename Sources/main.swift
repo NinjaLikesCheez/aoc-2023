@@ -21,6 +21,14 @@
 // five.partOne()
 // five.partTwo()
 
-let six = PuzzleSix()
-six.partOne()
-six.partTwo()
+// let six = PuzzleSix()
+// six.partOne()
+// six.partTwo()
+
+// let seven = PuzzleSeven()
+// seven.partOne()
+// seven.partTwo()
+
+let eight = PuzzleEight()
+eight.partOne()
+eight.partTwo()
